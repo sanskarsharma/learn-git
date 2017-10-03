@@ -1,0 +1,115 @@
+Resources for Git commands :
+https://try.github.io  	 interactive tutorial from github itself
+http://www.studytonight.com/github      	for learning git via articles 
+https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html      basic git commands
+https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet		git cheatsheet, best
+https://github.com/bpassos/git-commands       
+https://orga.cat/posts/most-useful-git-commands    
+
+Git commands :
+
+$git --version
+
+$ git init reponame
+
+Removing a repository is easy but deadly. Think twice before taking such a step. If you do decide to go ahead and remove your repository, deleting the .git directory will do the job for you.
+
+$ git add README
+$ git commit README
+
+Unstage (undo add) files:
+git reset HEAD file.txt
+
+git reset:
+You can use git reset <filename> to remove a file or files from the staging area.
+
+git reset did a great job of unstaging octodog.txt, but you'll notice that he's still there. He's just not staged anymore. It would be great if we could go back to how things were before octodog came around and ruined the party.
+Files can be changed back to how they were at the last commit by using the command: git checkout -- <target>. Go ahead and get rid of all the changes since the last commit for octocat.txt
+git checkout -- octocat.txt
+
+
+Set your details
+git config --global user.name "John Doe"
+git config --global user.email "john@example.com"
+Use --global to set the configuration for all projects. If git config is used without --global and run inside a project directory, the settings are set for the specific project.
+
+
+Clone a remote repository              in the current directory
+git clone https://github.com/user/repository.git
+This creates a new directory with the name of the repository.
+
+
+Get help for a specific git command
+git help clone
+
+Check the status of the working tree (current branch, changed files...)
+git status
+
+Make some changes, commit them
+git add changed_file.txt
+git add folder-with-changed-files/
+git commit -m "Commiting changes"
+
+Change message of last commit
+git commit --amend -m "New commit message"
+
+Push local commits to remote branch
+git push origin master
+# again origin means any remote-name given to a remote repo
+
+See recent commit history
+git log
+
+See commit history for the last two commits
+git log -2
+
+
+
+
+WORKING WITH REMOTE 
+
+Add remote
+git remote add remote-name https://github.com/user/repo.git
+# here remote-name can be anything and also "origin"
+#its basically the reference name of a remote repo on your computer
+# you can add as many remotes as you want with different names
+
+View remote urls
+git remote -v
+
+Change origin(remote repo) url
+git remote set-url origin http//github.com/repo.git
+# here origin is remote-name
+
+Update and merge your current branch with a remote
+cd repository/
+git pull origin master
+Where origin is the remote repository, and master the remote branch.
+If you don't want to merge your changes, use git fetch
+# useful link : https://stackoverflow.com/questions/292357/what-is-the-difference-between-git-pull-and-git-fetch
+
+
+BRANCHING OUT
+When developers are working on a feature or bug they'll often create a copy (aka. branch) of their code they can make separate commits to. Then when they're done they can merge this branch back into their main master branch.
+We want to remove all these pesky octocats, so let's create a branch called clean_up, where we'll do all the work:
+git branch clean_up
+
+
+Great! Now if you type git branch you'll see two local branches: a main branch named master and your new branch named  clean_up.
+You can switch branches using the git checkout <branch> command. Try it now to switch to the clean_up branch:
+git checkout clean_up
+
+Great, you're almost finished with the cat... er the bug fix, you just need to switch back to the master branch so you can copy (or merge) your changes from the clean_up branch back into the master branch.
+Go ahead and checkout the master branch:
+git checkout master
+
+Alrighty, the moment has come when you have to merge your changes from the clean_up branch into the master branch. Take a deep breath, it's not that scary.
+We're already on the master branch, so we just need to tell Git to merge the clean_up branch into it:
+git merge clean_up
+
+Since you're done with the clean_up branch you don't need it anymore.
+You can use git branch -d <branch name> to delete a branch. Go ahead and delete the clean_up branch now:
+git branch -d clean_up
+
+What if you have been working on a feature branch and you decide you really don't want this feature anymore? You might decide to delete the branch since you're scrapping the idea. You'll notice that git branch -d bad_feature doesn't work. This is because -d won't let you delete something that hasn't been merged.
+You can either add the --force (-f) option or use -D which combines -d -f together into one command.
